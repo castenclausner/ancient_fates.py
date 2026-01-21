@@ -326,5 +326,8 @@ def shop_taxes_menu(player):
                 player.wealth -= 15
                 player.log.append("Bought tools.")
                 st.rerun()
-            else:
-                st.write("Not enough wealth
+           st.divider()
+
+st.subheader("📜 Dynasty Chronicle")
+for d in st.session_state.dynasty:
+    st.write(f"{d['name']} — {d['title']} 
