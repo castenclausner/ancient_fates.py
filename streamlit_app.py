@@ -319,7 +319,7 @@ def shop_taxes_menu(player):
                 player.log.append("Bought food.")
                 st.rerun()
             else:
-                st.write("Not enough wealth.")
+              
         elif buy_option == "Tools (strength +5, 15 coins)":
             if player.wealth >= 15:
                 player.strength += 5
