@@ -1,30 +1,64 @@
-import streamlit as st
 import random
 
-st.set_page_config(page_title="Ancient Fates", layout="centered")
+class Player:
+    def __init__(self):
+        self.year = -550  # 550 BC
+        self.age = 0
+        self.life_stage = "Infancy"
+        self.hygiene = 50  # 0-100
+        self.health = 100  # 0-100
+        self.strength = 50  # 0-100
+        self.intelligence = 50  # 0-100
+        self.wealth = 100  # Starting coins or something
+        self.location = "Athens"  # Starting location, can change
+        self.religion = "Greek Polytheism"  # Default
+        self.cult_member = False
+        self.career_path = None
+        self.career_level = 0
+        self.education_path = None
+        self.education_level = 0
+        self.relationships = {
+            "Mother": 80,
+            "Father": 80
+        }
+        self.log = ["You are born in 550 BC in Athens."]  # Event log
 
-# =====================================================
-# INITIAL SETUP
-# =====================================================
+    def update_life_stage(self):
+        if self.age < 5:
+            self.life_stage = "Infancy"
+        elif self.age < 13:
+            self.life_stage = "Childhood"
+        elif self.age < 18:
+            self.life_stage = "Adolescence"
+        elif self.age < 50:
+            self.life_stage = "Adulthood"
+        else:
+            self.life_stage = "Old Age"
 
-if "dynasty" not in st.session_state:
-    st.session_state.dynasty = []
-
-if "player" not in st.session_state:
-    st.session_state.player = {
-        "name": "Founder",
-        "age": 16,
-        "culture": "Roman",
-        "title": "Citizen",
-        "religion": "Traditional Gods",
-        "province": {
-            "name": "Latium",
-            "stability": 70,
-            "wealth": 60,
-            "revolt": 10
-        },
-        "stats": {
-            "charisma": 50,
+    def age_up(self):
+        self.age += 1
+        self.year += 1
+        self.update_life_stage()
+        # Age-based effects
+        if self.life_stage == "Old Age":
+            self.health -= random.randint(1, 5)  # Faster health decay
+            self.strength -= random.randint(1, 3)
+        # Random events
+        events = [
+            "A good harvest increases your wealth.",
+            "You fall ill, health decreases.",
+            "You make a new friend.",
+            "Taxes are due, wealth decreases."
+        ]
+        event = random.choice(events)
+        self.log.append(event)
+        if "wealth increases" in event:
+            self.wealth += 20
+        elif "health decreases" in event:
+            self.health -= 10
+        elif "new friend" in event:
+            new_friend = random.choice(["Alexandros", "Helena", "Marcus"])
+            self.relationships[new_friend] =: 50,
             "fitness": 50,
             "health": 65,
             "intelligence": 50,
